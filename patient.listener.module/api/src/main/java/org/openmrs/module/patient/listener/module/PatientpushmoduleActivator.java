@@ -11,6 +11,8 @@ package org.openmrs.module.patient.listener.module;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.openmrs.Patient;
+import org.openmrs.event.Event;
 import org.openmrs.module.BaseModuleActivator;
 
 /**
@@ -19,19 +21,29 @@ import org.openmrs.module.BaseModuleActivator;
 public class PatientpushmoduleActivator extends BaseModuleActivator {
 	
 	private Log log = LogFactory.getLog(this.getClass());
+	private PatientCreationListener patientListener;
 	
 	/**
 	 * @see #started()
 	 */
+	@Override
 	public void started() {
 		log.info("Started Patient push module");
+		
+		patientListener = new PatientCreationListener();
+        Event.subscribe(Patient.class, Event.Action.CREATED.name(), patientListener);
 	}
 	
 	/**
 	 * @see #shutdown()
 	 */
+	@Override
 	public void shutdown() {
 		log.info("Shutdown Patient push module");
+		
+		if (patientListener != null) {
+        	Event.unsubscribe(Patient.class, Event.Action.CREATED.name(), patientListener);
+		}
 	}
 	
 }

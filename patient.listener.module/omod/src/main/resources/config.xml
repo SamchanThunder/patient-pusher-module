@@ -29,7 +29,11 @@
 		<aware_of_module>org.openmrs.module.legacyui</aware_of_module>
 	</aware_of_modules>
 	
-	
+	<require_modules>
+    	<require_module version="3.0.0">org.openmrs.module.event</require_module>
+    	<require_module version="2.1.0">org.openmrs.module.fhir2</require_module>
+	</require_modules>
+
 	<!-- AOP
 	<advice>
 		<point>org.openmrs.api.FormService</point>

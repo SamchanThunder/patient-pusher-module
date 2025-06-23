@@ -1,5 +1,5 @@
 // Checks when patient is created in OpenMRS then fetches it and posts it to FHIR Server.
-package org.openmrs;
+package org.openmrs.module.patient.listener.module;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -30,6 +30,7 @@ public class PatientCreationListener implements EventListener {
             String action = mapMessage.getString("action"); // Checks the value of the action key. What event happened (CREATE, UPDATE, etc)?
             
             // Checks if action was a create. Future Consideration: Implement update patient
+            // The Activator file only allows CREATED actions to here, but this is a double check.
             if (Event.Action.CREATED.toString().equals(action)) {
                 String uuid = mapMessage.getString("uuid"); // Gets value of uuid key
 
