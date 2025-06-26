@@ -13,35 +13,30 @@
 	<description>Omod submodule for Patient push module</description>
 
 	<dependencies>
-        <dependency>
-            <groupId>org.openmrs.module</groupId>
-            <artifactId>patient.listener.module-api</artifactId>
-            <version>1.0.0</version>
-        </dependency>
-		<dependency>
-			<groupId>org.openmrs.web</groupId>
-			<artifactId>openmrs-web</artifactId>
-            <scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.openmrs.web</groupId>
-			<artifactId>openmrs-web</artifactId>
-			<scope>provided</scope>
-			<classifier>tests</classifier>
-		</dependency>
-		<dependency>
-			<groupId>org.openmrs.module</groupId>
-			<artifactId>event</artifactId>
-			<version>3.0.0</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.openmrs.module</groupId>
-			<artifactId>fhir2-api</artifactId>
-			<version>2.1.0</version>
-			<scope>provided</scope>
-		</dependency>
-	</dependencies>
+    <dependency>
+        <groupId>org.openmrs.module</groupId>
+        <artifactId>patient.listener.module-api</artifactId>
+        <version>1.0.0</version>
+    </dependency>
+    <dependency>
+        <groupId>org.openmrs.web</groupId>
+        <artifactId>openmrs-web</artifactId>
+        <scope>provided</scope>
+    </dependency>
+    <dependency>
+        <groupId>org.openmrs</groupId>
+        <artifactId>event-api</artifactId>
+        <version>3.0.0</version>
+        <scope>provided</scope>
+    </dependency>
+    <dependency>
+        <groupId>org.openmrs.module</groupId>
+        <artifactId>fhir2-api</artifactId>
+        <version>2.1.0</version>
+        <scope>provided</scope>
+    </dependency>
+</dependencies>
+
 
 	<build>
 		<finalName>${project.parent.artifactId}-${project.parent.version}</finalName>

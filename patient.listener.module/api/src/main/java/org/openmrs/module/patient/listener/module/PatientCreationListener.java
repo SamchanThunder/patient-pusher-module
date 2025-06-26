@@ -1,5 +1,6 @@
 // Checks when patient is created in OpenMRS then fetches it and posts it to FHIR Server.
 package org.openmrs.module.patient.listener.module;
+
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -12,18 +13,23 @@ import org.openmrs.event.Event;
 import org.openmrs.event.EventListener;
 
 public class PatientCreationListener implements EventListener {
-    // Servers (Respective to my Local Environment)
-    private String urlMRS = "http://localhost:8082/openmrs/ws/fhir2/R4/Patient/";
-    private String urlHIM = "http://localhost:5001/fhir/Patient";
-
-    // OpenMRS Auth Credentials (Must be hidden in production)
-    private String usernameMRS = "admin";
-    private String passwordMRS = "Admin123"; 
-    // OpenHIM Auth Credentials (Must be hidden in production)
-    private String usernameHIM = "interop-client";
-    private String passwordHIM = "interop-password";
-
-    @Override
+	
+	// Servers (Respective to my Local Environment)
+	private String urlMRS = "http://localhost:8082/openmrs/ws/fhir2/R4/Patient/";
+	
+	private String urlHIM = "http://localhost:5001/fhir/Patient";
+	
+	// OpenMRS Auth Credentials (Must be hidden in production)
+	private String usernameMRS = "admin";
+	
+	private String passwordMRS = "Admin123";
+	
+	// OpenHIM Auth Credentials (Must be hidden in production)
+	private String usernameHIM = "interop-client";
+	
+	private String passwordHIM = "interop-password";
+	
+	@Override
 	public void onMessage(Message message) {
 		try {
             MapMessage mapMessage = (MapMessage) message; // Changes message to Key Value pairs.
