@@ -9,10 +9,13 @@ import java.util.Base64;
 import java.util.Scanner;
 import javax.jms.Message;
 import javax.jms.MapMessage;
+import java.util.Map;
+import java.util.List;
 import org.openmrs.event.Event;
 import org.openmrs.event.EventListener;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class PatientPusher implements EventListener {
 	
@@ -62,7 +65,19 @@ public class PatientPusher implements EventListener {
 
                 String patientJson = new Scanner(getCon.getInputStream(), "UTF-8").useDelimiter("\\A").next(); // Converts json to string
 
-                log.info("Fetched patient JSON: " + patientJson); // Remove later (for testing)
+                log.info("Fetched patient JSON: " + patientJson);
+                
+                // Add a system[0].identifier to the json
+                ObjectMapper mapper = new ObjectMapper();
+                Map<String, Object> jsonMap = mapper.readValue(patientJson, Map.class);
+
+                List<Map<String, Object>> identifiers = (List<Map<String, Object>>) jsonMap.get("identifier");
+                if (identifiers != null && identifiers.size() > 0) {
+                    identifiers.get(0).put("system", "openmrs");
+                }
+
+                patientJson = mapper.writeValueAsString(jsonMap);
+
 
                 // Post Data to OpenHIM FHIR Server
                 URL postUrl = new URL(urlHIM);
