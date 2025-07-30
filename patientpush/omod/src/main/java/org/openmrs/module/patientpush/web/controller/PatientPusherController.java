@@ -29,7 +29,7 @@ import java.util.List;
  * 'module/${rootArtifactid}/${rootArtifactid}Link.form'.
  */
 @Controller("${rootrootArtifactid}.PatientPusherController")
-@RequestMapping(value = "module/${rootArtifactid}/${rootArtifactid}.form")
+@RequestMapping(value = "/module/patientpush/patientpush.form", method = RequestMethod.GET)
 public class PatientPusherController {
 	
 	/** Logger for this class and subclasses */

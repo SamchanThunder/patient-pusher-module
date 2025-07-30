@@ -35,6 +35,9 @@ public class PatientPusher implements EventListener {
 	private String usernameHIM = "interop-client";
 	
 	private String passwordHIM = "interop-password";
+
+    // System Name
+    private String systemName = "openmrs";
 	
 	@Override
 	public void onMessage(Message message) {
@@ -67,21 +70,30 @@ public class PatientPusher implements EventListener {
 
                 log.info("Fetched patient JSON: " + patientJson);
                 
-                // Add a system[0].identifier to the json
+                // Alter identifier[0] of the json, primarily adding the system name to it.
                 ObjectMapper mapper = new ObjectMapper();
                 Map<String, Object> jsonMap = mapper.readValue(patientJson, Map.class);
 
                 List<Map<String, Object>> identifiers = (List<Map<String, Object>>) jsonMap.get("identifier");
                 if (identifiers != null && identifiers.size() > 0) {
-                    identifiers.get(0).put("system", "openmrs");
+                    Map<String, Object> firstIdentifier = identifiers.get(0);
+
+                    // Swap id and value (I do this so this data can work better with my OpenHIM)
+                    Object idValue = uuid;
+                    Object valValuee = firstIdentifier.get("value");
+
+                    firstIdentifier.put("id", valValuee);
+                    firstIdentifier.put("value", idValue);
+
+                    // Set system value
+                    firstIdentifier.put("system", systemName);                
                 }
 
                 patientJson = mapper.writeValueAsString(jsonMap);
 
-
                 // Post Data to OpenHIM FHIR Server
                 URL postUrl = new URL(urlHIM);
-                HttpURLConnection postCon = (HttpURLConnection) postUrl.openConnection(); // Opens connection to URRL
+                HttpURLConnection postCon = (HttpURLConnection) postUrl.openConnection(); // Opens connection to URL
                 postCon.setRequestMethod("POST");
                 postCon.setDoOutput(true); // We want to write data with a request body
                 postCon.setRequestProperty("Content-Type", "application/json");

@@ -1,0 +1,7 @@
+org/openmrs/module/patientpush/Item.class
+org/openmrs/module/patientpush/PatientPusherConfig.class
+org/openmrs/module/patientpush/api/dao/PatientPusherDao.class
+org/openmrs/module/patientpush/api/impl/PatientPusherServiceImpl.class
+org/openmrs/module/patientpush/api/PatientPusherService.class
+org/openmrs/module/patientpush/PatientPusher.class
+org/openmrs/module/patientpush/PatientPusherActivator.class
